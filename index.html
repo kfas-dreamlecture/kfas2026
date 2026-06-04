@@ -431,7 +431,7 @@
     top: 0; left: 0; right: 0; bottom: 0;
     background: #0a1614;
     padding: 80px 2rem 2rem;
-    z-index: 500;
+    z-index: 9999;
     flex-direction: column;
     gap: 0;
   }
@@ -950,6 +950,10 @@
     if (isOpen) {
       closeDrawer();
     } else {
+      // body 직속으로 이동해 stacking context 문제 해결
+      if (drawer.parentNode !== document.body) {
+        document.body.appendChild(drawer);
+      }
       drawer.classList.add('open');
       btn.classList.add('open');
       document.body.style.overflow = 'hidden';
