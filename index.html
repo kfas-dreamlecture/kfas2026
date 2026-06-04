@@ -31,7 +31,7 @@
 
   /* ─── NAV ─── */
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 600;
     background: rgba(29,74,71,0.95); backdrop-filter: blur(14px);
     border-bottom: 1px solid rgba(90,171,160,0.25);
     display: flex; align-items: center; justify-content: space-between;
@@ -427,36 +427,32 @@
   /* ─── 모바일 드로어 ─── */
   .nav-drawer {
     position: fixed;
-    top: 56px; left: 0; right: 0;
-    background: rgba(14,26,25,0.97);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(90,171,160,0.25);
-    padding: 0.5rem 1.5rem 1.2rem;
-    z-index: 300;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: #0e1a19;
+    padding: 80px 2rem 2rem;
+    z-index: 500;
     flex-direction: column;
     gap: 0;
     pointer-events: none;
     opacity: 0;
-    transform: translateY(-6px);
-    transition: opacity 0.22s ease, transform 0.22s ease;
+    transition: opacity 0.25s ease;
     display: flex;
   }
   .nav-drawer.open {
     pointer-events: auto;
     opacity: 1;
-    transform: translateY(0);
   }
   .nav-drawer a {
-    font-size: 0.9rem;
+    font-size: 1rem;
     letter-spacing: 0.08em;
     color: rgba(228,240,239,0.85);
     text-decoration: none;
-    padding: 0.85rem 0;
-    border-bottom: 1px solid rgba(90,171,160,0.15);
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(90,171,160,0.2);
     transition: color 0.2s;
   }
   .nav-drawer a:last-child { border-bottom: none; }
-  .nav-drawer a:hover { color: var(--gold-light); }
+  .nav-drawer a:hover, .nav-drawer a:active { color: var(--gold-light); }
 
   @media (max-width:768px) {
     nav { padding:0 1.5rem; }
