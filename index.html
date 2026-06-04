@@ -426,21 +426,17 @@
 
   /* ─── 모바일 드로어 ─── */
   .nav-drawer {
+    display: none;
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: #0e1a19;
+    background: #0a1614;
     padding: 80px 2rem 2rem;
     z-index: 500;
     flex-direction: column;
     gap: 0;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.25s ease;
-    display: flex;
   }
   .nav-drawer.open {
-    pointer-events: auto;
-    opacity: 1;
+    display: flex;
   }
   .nav-drawer a {
     font-size: 1rem;
