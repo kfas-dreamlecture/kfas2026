@@ -426,31 +426,32 @@
 
   /* ─── 모바일 드로어 ─── */
   .nav-drawer {
-    display: none;
     position: fixed;
     top: 56px; left: 0; right: 0;
-    background: rgba(29,74,71,0.98);
-    backdrop-filter: blur(14px);
+    background: rgba(14,26,25,0.97);
+    backdrop-filter: blur(16px);
     border-bottom: 1px solid rgba(90,171,160,0.25);
-    padding: 1.2rem 1.5rem 1.5rem;
-    z-index: 199;
+    padding: 0.5rem 1.5rem 1.2rem;
+    z-index: 300;
     flex-direction: column;
     gap: 0;
-    transform: translateY(-8px);
+    pointer-events: none;
     opacity: 0;
-    transition: transform 0.25s ease, opacity 0.25s ease;
+    transform: translateY(-6px);
+    transition: opacity 0.22s ease, transform 0.22s ease;
+    display: flex;
   }
   .nav-drawer.open {
-    display: flex;
-    transform: translateY(0);
+    pointer-events: auto;
     opacity: 1;
+    transform: translateY(0);
   }
   .nav-drawer a {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     letter-spacing: 0.08em;
-    color: rgba(228,240,239,0.75);
+    color: rgba(228,240,239,0.85);
     text-decoration: none;
-    padding: 0.75rem 0;
+    padding: 0.85rem 0;
     border-bottom: 1px solid rgba(90,171,160,0.15);
     transition: color 0.2s;
   }
