@@ -410,7 +410,6 @@
     width: 36px; height: 36px;
     background: none; border: none;
     cursor: pointer; padding: 4px;
-    z-index: 201;
   }
   .nav-hamburger span {
     display: block;
@@ -424,36 +423,50 @@
   .nav-hamburger.open span:nth-child(2) { opacity: 0; }
   .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  /* ─── 모바일 드로어 ─── */
-  .nav-drawer {
+  /* ─── 모바일 메뉴 행 ─── */
+  .nav-mobile-links {
     display: none;
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: #0a1614;
-    padding: 80px 2rem 2rem;
-    z-index: 9999;
-    flex-direction: column;
-    gap: 0;
   }
-  .nav-drawer.open {
-    display: flex;
-  }
-  .nav-drawer a {
-    font-size: 1rem;
-    letter-spacing: 0.08em;
-    color: rgba(228,240,239,0.85);
-    text-decoration: none;
-    padding: 1rem 0;
-    border-bottom: 1px solid rgba(90,171,160,0.2);
-    transition: color 0.2s;
-  }
-  .nav-drawer a:last-child { border-bottom: none; }
-  .nav-drawer a:hover, .nav-drawer a:active { color: var(--gold-light); }
 
   @media (max-width:768px) {
-    nav { padding:0 1.5rem; }
-    .nav-links { display:none; }
-    .nav-hamburger { display:flex; }
+    nav {
+      padding: 0 1.5rem;
+      flex-wrap: wrap;
+      height: auto;
+      min-height: 56px;
+      align-items: flex-start;
+      padding-top: 0;
+    }
+    .nav-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      height: 56px;
+    }
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .nav-mobile-links {
+      display: none;
+      width: 100%;
+      border-top: 1px solid rgba(90,171,160,0.2);
+      padding: 0.5rem 0 0.8rem;
+      flex-wrap: wrap;
+      gap: 0;
+    }
+    .nav-mobile-links.open { display: flex; }
+    .nav-mobile-links a {
+      width: calc(100% / 3);
+      text-align: center;
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      color: rgba(228,240,239,0.75);
+      text-decoration: none;
+      padding: 0.6rem 0.2rem;
+      transition: color 0.2s;
+    }
+    .nav-mobile-links a:hover,
+    .nav-mobile-links a:active { color: var(--gold-light); }
     section { padding:5rem 1.5rem; }
     #hero { padding:0 1.5rem 5rem; }
     .overview-grid { grid-template-columns:1fr; }
@@ -550,29 +563,29 @@
 <body>
 
 <!-- NAV -->
-<nav>
-  <a href="#hero" class="nav-logo">KFAS 2026</a>
-  <ul class="nav-links">
-    <li><a href="#invitation">초대의 글</a></li>
-    <li><a href="#about">KFAS 소개</a></li>
-    <li><a href="#overview">행사 개요</a></li>
-    <li><a href="#schedule">행사 일정</a></li>
-    <li><a href="#speakers">발표자</a></li>
-    <li><a href="#venue">장소 안내</a></li>
-  </ul>
-  <button class="nav-hamburger" id="nav-hamburger" onclick="toggleDrawer()" aria-label="메뉴">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
-
-<!-- 모바일 드로어 -->
-<nav class="nav-drawer" id="nav-drawer">
-  <a href="#invitation" onclick="closeDrawer()">초대의 글</a>
-  <a href="#about" onclick="closeDrawer()">KFAS 소개</a>
-  <a href="#overview" onclick="closeDrawer()">행사 개요</a>
-  <a href="#schedule" onclick="closeDrawer()">행사 일정</a>
-  <a href="#speakers" onclick="closeDrawer()">발표자</a>
-  <a href="#venue" onclick="closeDrawer()">장소 안내</a>
+<nav id="main-nav">
+  <div class="nav-top-row">
+    <a href="#hero" class="nav-logo">KFAS 2026</a>
+    <ul class="nav-links">
+      <li><a href="#invitation">초대의 글</a></li>
+      <li><a href="#about">KFAS 소개</a></li>
+      <li><a href="#overview">행사 개요</a></li>
+      <li><a href="#schedule">행사 일정</a></li>
+      <li><a href="#speakers">발표자</a></li>
+      <li><a href="#venue">장소 안내</a></li>
+    </ul>
+    <button class="nav-hamburger" id="nav-hamburger" onclick="toggleMobileMenu()" aria-label="메뉴">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile-links" id="nav-mobile-links">
+    <a href="#invitation" onclick="closeMobileMenu()">초대의 글</a>
+    <a href="#about" onclick="closeMobileMenu()">KFAS 소개</a>
+    <a href="#overview" onclick="closeMobileMenu()">행사 개요</a>
+    <a href="#schedule" onclick="closeMobileMenu()">행사 일정</a>
+    <a href="#speakers" onclick="closeMobileMenu()">발표자</a>
+    <a href="#venue" onclick="closeMobileMenu()">장소 안내</a>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -942,36 +955,22 @@
 
 <script>
   /* ── Schedule tabs ── */
-  /* ── 모바일 드로어 ── */
-  function toggleDrawer() {
+  /* ── 모바일 메뉴 ── */
+  function toggleMobileMenu() {
     const btn = document.getElementById('nav-hamburger');
-    const drawer = document.getElementById('nav-drawer');
-    const isOpen = drawer.classList.contains('open');
+    const links = document.getElementById('nav-mobile-links');
+    const isOpen = links.classList.contains('open');
     if (isOpen) {
-      closeDrawer();
+      closeMobileMenu();
     } else {
-      // body 직속으로 이동해 stacking context 문제 해결
-      if (drawer.parentNode !== document.body) {
-        document.body.appendChild(drawer);
-      }
-      drawer.classList.add('open');
+      links.classList.add('open');
       btn.classList.add('open');
-      document.body.style.overflow = 'hidden';
     }
   }
-  function closeDrawer() {
-    document.getElementById('nav-drawer').classList.remove('open');
+  function closeMobileMenu() {
+    document.getElementById('nav-mobile-links').classList.remove('open');
     document.getElementById('nav-hamburger').classList.remove('open');
-    document.body.style.overflow = '';
   }
-  // 드로어 외부 클릭 시 닫기
-  document.addEventListener('click', e => {
-    const drawer = document.getElementById('nav-drawer');
-    const btn = document.getElementById('nav-hamburger');
-    if (drawer.classList.contains('open') && !drawer.contains(e.target) && !btn.contains(e.target)) {
-      closeDrawer();
-    }
-  });
 
   function showDay(id, btn) {
     document.querySelectorAll('.schedule-day').forEach(d => d.classList.remove('active'));
